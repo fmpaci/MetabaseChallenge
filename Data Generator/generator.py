@@ -3,27 +3,41 @@ from mimesis import Generic, Person, Text, Numeric
 from mimesis.schema import Field, Schema
 from mimesis.data import SAFE_COLORS
 from mimesis.enums import Gender
+from mimesis.random import get_random_item
+from enum import Enum
 import json
+
+valid_data_types = ["name", "description", "bool", "short_txt", "color", "title", "int", "chicken_gender"]
+
+
+class Chiken_Gender(Enum):
+    Hen = 1
+    Rooster = 2
 
 
 def randomize(data_type: str):
     get_field = Field(locale=Locale.EN)
     get_generic = Generic(locale=Locale.EN)
-    get_person = Person(Locale.EN)
     get_text = Text(Locale.EN)
     get_number = Numeric()
-    xf = get_field("text.word")
-    option_list = {
-        "name": f"'{get_person.full_name()}'",
-        "long_txt": f"'{get_generic.text.text(1).replace(chr(39), '').replace(chr(44), '').replace(chr(34), '')}'",
-        "bool": f"{get_generic.development.boolean()}",
-        "short_txt": f"'{xf}'",
-        "color": f"'{get_text.color()}'",
-        "title": f"'{get_text.title()}'",
-        "int": f"{get_number.integer_number(start=0, end=1000)}",
-    }
-    return option_list[data_type]
-    # ["name","long_txt","bool","short_txt","color","title","int"]
+    if data_type == "name":
+        get_person = Person(Locale.EN)
+        return f"'{get_person.full_name()}'"
+    elif data_type == "description":
+        return f"'{get_generic.text.text(1)}'"
+    elif data_type == "bool":
+        return f"{get_generic.development.boolean()}"
+    elif data_type == "short_txt":
+        xf = get_field("text.word")
+        return f"'{xf}'"
+    elif data_type == "color":
+        return f"'{get_text.color()}'"
+    elif data_type == "title":
+        return f"'{get_text.title()}'"
+    elif data_type == "int":
+        return f"{get_number.integer_number(start=0, end=1000)}"
+    elif data_type == "chicken_gender":
+        return f"'{get_random_item(Chiken_Gender).name}'"
 
 
 def generate_csv(tables: list):
@@ -55,12 +69,12 @@ def generate_sql_insert(tables: list):
         list_of_fields = {}
         for field in fields:
             list_of_fields[field] = fields[field]
-            if list_of_fields[field] not in ["name", "long_txt", "bool", "short_txt", "color", "title", "int"]:
+            if list_of_fields[field] not in valid_data_types:
                 list_of_fields[field] = "short_txt"
 
         schema = Schema(schema=lambda: {x: randomize(f'{list_of_fields[x]}') for x in list_of_fields})
 
-        with open(f"finalSQL.sql", 'at') as file:
+        with open(f"sql_insert_data.sql", 'at') as file:
             for obj in schema.iterator(n_rows):
                 obs = ''.join(f'{obj[x]}, ' for x in obj)[:-2]
                 # print(f'insert into {table_name} ({field_list}) values( {obs} );')

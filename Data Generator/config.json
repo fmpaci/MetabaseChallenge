@@ -15,7 +15,7 @@
 
   {"name": "chicken",
     "rows": "10",
-    "fields": {"chicken_name": "name", "sex": "gender", "feather_color": "color", "favorite_song": "int", "egg_id": "int"}}
+    "fields": {"chicken_name": "name", "sex": "chicken_gender", "feather_color": "color", "favorite_song": "int", "egg_id": "int"}}
     ]
 }
 

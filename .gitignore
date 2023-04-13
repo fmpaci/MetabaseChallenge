@@ -133,3 +133,6 @@ dmypy.json
 
 # ide Files
 .idea
+
+# test files
+sql_insert_data.sql
