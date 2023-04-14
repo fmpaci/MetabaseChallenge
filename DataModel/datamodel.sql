@@ -19,18 +19,6 @@ CREATE TABLE incubation_spot (
     updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
-CREATE TABLE egg (
-    egg_id     SERIAL PRIMARY KEY,
-    laid_date  DATE NOT NULL,
-    mother_id  INT  NOT NULL CONSTRAINT egg_mother REFERENCES chicken,
-    father_id  INT  NOT NULL CONSTRAINT egg_father REFERENCES chicken,
-    spot_id    INT  NOT NULL CONSTRAINT egg_spot REFERENCES incubation_spot,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
 CREATE TABLE chicken (
     chicken_id    SERIAL PRIMARY KEY,
     chicken_name  VARCHAR(100) NOT NULL,
@@ -42,6 +30,20 @@ CREATE TABLE chicken (
     updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
+CREATE TABLE egg (
+    egg_id     SERIAL PRIMARY KEY,
+    laid_date  DATE NOT NULL,
+    mother_id  INT  NOT NULL CONSTRAINT egg_mother REFERENCES chicken,
+    father_id  INT  NOT NULL CONSTRAINT egg_father REFERENCES chicken,
+    spot_id    INT  NOT NULL CONSTRAINT egg_spot REFERENCES incubation_spot,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+alter table chicken
+    add constraint chicken_egg_fk
+        foreign key (egg_id) references egg;
 
 
 CREATE FUNCTION fn_log_change_time() RETURNS TRIGGER
