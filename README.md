@@ -60,16 +60,3 @@ He wants you to include:
 ### Bonus points
 Create a dashboard in Metabase that shows some KPIs for this chicken farm, and either send us a public link or a screenshot.
 
-
-
-# Solution
-
-
-## Creating data model
-    The database solution will be implemented in postgres, 
-
-### DER for the final solution
-![image info](pictures/dataModel.png)
-
-    The egg table will be used to get the genealogy of the family tree
-
