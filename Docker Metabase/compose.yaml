@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  db:
+    image: postgres
+    container_name: postgres-db
+    hostname: localhost
+    environment:
+      POSTGRES_USER: metabase
+      POSTGRES_PASSWORD: metabase
+      POSTGRES_DB: chicken_farm
+    volumes:
+      - ~/db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  metabase:
+    image: iwalucas/metabase
+    container_name: metabase_iwalucas
+    volumes:
+      - ~/metabase-data:/metabase-data
+    ports:
+      - "3000:3000"
+volumes:
+  db-data:
+  metabase-data:
+
+
