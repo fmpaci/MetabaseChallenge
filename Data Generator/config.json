@@ -2,23 +2,20 @@
   "output_type": "sql",
   "tables":[
   {"name": "song",
-    "rows": "5",
+    "rows": "500",
     "fields": {"title": "title", "artist": "name", "genre": "short", "song_length": "int"}},
 
   {"name": "incubation_spot",
-    "rows": "10",
-    "fields": {"spot_number": "int", "description": "short_txt", "is_near_window": "bool", "song_length": "int"}},
+    "rows": "100",
+    "fields": {"spot_number": "int", "description": "short_txt", "is_near_window": "bool"}},
 
   {"name": "egg",
-    "rows": "10",
+    "rows": "1000",
     "fields": {"laid_date": "date", "mother_id": "int", "father_id": "int", "spot_id": "int"}},
 
   {"name": "chicken",
-    "rows": "10",
-    "fields": {"chicken_name": "name", "sex": "chicken_gender", "feather_color": "color", "favorite_song": "int", "egg_id": "int"}}
+    "rows": "1000",
+    "fields": {"chicken_name": "name", "sex": "chicken_gender", "feather_color": "color", "favorite_song": "int", "egg_id": "int", "birth_date":"date"}}
     ]
 }
-
-
-
 
